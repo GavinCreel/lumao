@@ -1,0 +1,14 @@
+{
+    "zksrpc": "https://mainnet.era.zksync.io",
+    "ethrpc": "https://rpc.ankr.com/eth",
+    "bscrpc": "https://rpc.ankr.com/bsc",
+    "opbnb": "https://1rpc.io/opbnb",
+    "maxGasPrice": 50,
+    "minInterval": 10,
+    "maxInterval": 120,
+    "randomFactor":0,
+    "max_retries": 5,
+    "max_proxy_check_attempts": 3,
+    "proxyArray":[
+    ]
+}

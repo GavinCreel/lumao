@@ -1,0 +1,35 @@
+{
+    "name": "lumao",
+    "version": "1.0.0",
+    "description": "应对时代变化的撸毛小工具",
+    "main": "start.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "GavinCreel",
+    "license": "Apache 2.0",
+    "dependencies": {
+        "@web3modal/ethers5": "^4.1.1",
+        "axios": "^1.6.7",
+        "bip39": "^3.1.0",
+        "child_process": "^1.0.2",
+        "csv-parser": "^3.0.0",
+        "csv-writer": "^1.6.0",
+        "ethereumjs-wallet": "^1.0.2",
+        "ethers": "^5.7.2",
+        "fake-useragent": "^1.0.1",
+        "fs": "^0.0.1-security",
+        "https-proxy-agent": "^7.0.2",
+        "node-fetch": "^2.7.0",
+        "readline-sync": "^1.4.10",
+        "save": "^2.9.0",
+        "uuid": "^9.0.1"
+    },
+    "json-comments": {
+        "tips": "Please install the JsonComments plugin to enable commenting functionality for JSON files, see: https://github.com/zhangfisher/json_comments_extension",
+        "config/runner.json": {
+            "max_retries": "网络请求最大次数",
+            "max_proxy_check_attempts": "代理服务检查最大次数"
+        }
+    }
+}
