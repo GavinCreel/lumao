@@ -1,17 +1,46 @@
+ [English](README.md) | [简体中文](README_CN.md)
+## Instructions for use
 
-## 使用说明
+Create some small tools with the goal of achieving valuable grooming. The plan will continue to iterate and update more small tools.
 
- 制作一些小的工具类，目标是实现有价值的撸毛。计划会持续迭代更新更多小工具。
- 
---
--utils
---convert
+1. It can generate wallet addresses and private keys in bulk, and bind proxy IPs for each address, enabling each address to request a fixed IP address each time, avoiding fluctuations;
 
-1.可批量生成钱包地址和私钥，并为每个地址绑定代理IP，可实现每个地址每次请求固定IP，避免产生波动；
+2. Each time the script is executed, it can randomly obtain the wallet, shuffle the order of execution, and avoid fixed order being recognized;
 
-2.每次执行脚本时，可实现随机获取钱包，打乱顺序执行，避免固定顺序被识别；
+```
+    root
+    │  config.json
+    │  start.js
+    └─utils
+        │  cipher.js
+        │  generate.js
+        │  logger.js
+        │  utils.js
+        │  walletList.csv
+        ├─convert
+        │      accountConvert.js
+        │      originWallet.csv
+        │      resultWallet.csv
+        │      runConvert.js
+        └─yesCaptcha
+                yesCaptcha.js
+```
 
---
-#### 1、下载软件依赖库
+#### 1.install dependency libraries
 `npm install`
 
+## Disclaimers
+
+**The interactive program does not save or upload any private keys. Before use, please ensure that the computer environment is safe and there are no scanning Trojan software or corresponding programs. I am not responsible for any wallet theft incidents and will not provide corresponding explanations. Using this program is deemed to agree to this statement**
+
+
+
+**Please check the code yourself before use**
+
+**Please check the code yourself before use**
+
+**Please check the code yourself before use**
+
+
+
+**Welcome to follow Twitter: https://twitter.com/BonusEggs**
