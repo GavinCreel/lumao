@@ -7,7 +7,6 @@ const { v4: uuidv4 } = require('uuid');
 const Cipher = require('./cipher');
 
 const config = require('../config/runner.json');
-const { error } = require('console');
 
 class Utils{
     constructor(waitMinSec, waitMaxSec, waitFactor){
