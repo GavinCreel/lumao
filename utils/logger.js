@@ -6,12 +6,12 @@ class logger {
     constructor(logFilePath) {
         if(!logFilePath){
             let d = new Date();
-            logFilePath = d.getFullYear()+'-'+(d.getMonth()+1) +'-'+d.getDate()+'.csv';
+            logFilePath = './log/'+d.getFullYear()+'-'+(d.getMonth()+1) +'-'+d.getDate()+'.csv';
         }
         this.logFilePath = logFilePath;
     }
     log(message) {
-        const logEntry = `${new Date().toLocaleString()}: ${message}\n`;
+        const logEntry = `${message}\n`;
         fs.appendFileSync(this.logFilePath, logEntry, 'utf8');
     }
     //要求：以英文逗号’,’分割格式装填message

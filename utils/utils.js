@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const Cipher = require('./cipher');
 
-const config = require('../config/runner.json');
+const config = require('../config.json');
 
 class Utils{
     constructor(waitMinSec, waitMaxSec, waitFactor){
@@ -66,8 +66,8 @@ class Utils{
                     //forEach内部的代码是同步执行的，这意味着await关键字后的异步操作会在下一个循环迭代开始之前才真正开始执行。
                     for (let index = 0; index < uids.length; index++) {
                         const uid = uids[index];
-                        await callback(accounts[uid]);
-                        if ((index + 1) < uids.length) {
+                        let flag = await callback(accounts[uid]);
+                        if (flag && ((index + 1) < uids.length)) {
                             const pauseTime = this.randomPause(this.minInterval, this.maxInterval, this.randomFactor);
                             console.log(`暂停 ${pauseTime} 秒`);
                             await this.sleep(pauseTime);
@@ -134,8 +134,8 @@ class Utils{
     
     async checkProxyIsON(proxy){
         let proxyVerified = false; // 代理验证标志
-        if(!proxy){
-            console.error('未配置代理服务，请检查。');
+        if(!proxy || !proxy.startsWith('http')){
+            console.error('未配置代理服务或配置不正常，请检查。');
             return proxyVerified;
         }
         try {
@@ -150,7 +150,7 @@ class Utils{
                 } catch (error) {
                     proxyAttempts++;
                     console.log('代理失效，等待1分钟后重新验证,'+error);
-                    await sleep(60); // 等待1分钟
+                    await this.sleep(60); // 等待1分钟
                 }
             }
     
@@ -161,6 +161,77 @@ class Utils{
             console.error('发生错误:', error);
         }
         return proxyVerified;
+    }
+
+    checkType(param) {
+        switch (typeof param) {
+            case 'string':
+                console.log('参数是字符串类型');
+                break;
+            case 'number':
+                console.log('参数是数字类型');
+                break;
+            case 'boolean':
+                console.log('参数是布尔类型');
+                break;
+            case 'undefined':
+                console.log('参数是undefined类型');
+                break;
+            case 'object':
+                // 对于null, 返回'object'
+                if (param === null) {
+                    console.log('参数是null类型');
+                } else if (Array.isArray(param)) {
+                    console.log('参数是数组类型');
+                } else {
+                    console.log('参数是对象类型');
+                }
+                break;
+            case 'function':
+                console.log('参数是函数类型');
+                break;
+            default:
+                console.log('参数类型未知');
+                break;
+        }
+    }
+
+    checkFileExist(filePath) {
+        let flag = false;
+        try {
+            const stats = fs.statSync(filePath);
+            if (stats.isFile()) {
+                console.log('文件存在');
+                flag = true;
+            } else {
+                console.log('文件不存在或不是一个标准文件');
+            }
+        } catch (err) {
+            if (err.code === 'ENOENT') {
+                console.log('文件不存在');
+            } else {
+                console.log('发生其他错误:', err);
+            }
+        }
+        return flag;
+    }
+    
+    async readFileToCSV(filePath){
+        let accounts = [];
+        return new Promise((resolve,reject)=>{
+            fs.createReadStream(filePath)
+                .pipe(csvParser())
+                .on('data', (row) => {
+                    accounts.push(row.address);
+                })
+                .on('end', async () => {
+                    resolve(accounts);
+                })
+                .on('error', (error) => {
+                    console.error('读取地址失败:', error);
+                    reject(error);
+                });
+        });
     }
 }
 
